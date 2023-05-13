@@ -1,4 +1,4 @@
-package Belarus.Softarex.TechnicalProj.entities;
+package com.softarex.technical_proj.entities;
 
 import lombok.*;
 import org.hibernate.Hibernate;
@@ -13,6 +13,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 @Data
+@ToString
 public class User implements UserDetails {
 
     @Id
@@ -25,7 +26,7 @@ public class User implements UserDetails {
     @Column(name = "enabled")
     private String enabled;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     @ToString.Exclude
     private List<Authority> authorityList;
 
@@ -60,18 +61,5 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-        User user = (User) o;
-        return email != null && Objects.equals(email, user.email);
-    }
-
-    @Override
-    public int hashCode() {
-        return getClass().hashCode();
     }
 }

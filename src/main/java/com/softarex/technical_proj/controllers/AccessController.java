@@ -1,8 +1,8 @@
-package Belarus.Softarex.TechnicalProj.controllers;
+package com.softarex.technical_proj.controllers;
 
-import Belarus.Softarex.TechnicalProj.entities.User;
-import Belarus.Softarex.TechnicalProj.exceptions.ServiceException;
-import Belarus.Softarex.TechnicalProj.services.UserService;
+import com.softarex.technical_proj.entities.User;
+import com.softarex.technical_proj.exceptions.ServiceException;
+import com.softarex.technical_proj.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.WebAttributes;
@@ -25,8 +25,9 @@ public class AccessController {
 
     @GetMapping("/login-error")
     public String loginError(HttpServletRequest request, Model model){
-        HttpSession session = request.getSession(false);
+       /* HttpSession session = request.getSession(false);
         String errorMessage = null;
+
         if (session != null){
             AuthenticationException ex = (AuthenticationException) session.getAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
             if (ex != null){
@@ -34,7 +35,7 @@ public class AccessController {
             }
         }
         System.out.println("--------" + errorMessage);
-        model.addAttribute("errorMessage", errorMessage);
+        model.addAttribute("errorMessage", errorMessage);*/
         return "login";
     }
 

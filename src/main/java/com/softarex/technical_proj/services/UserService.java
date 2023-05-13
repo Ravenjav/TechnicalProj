@@ -1,12 +1,9 @@
-package Belarus.Softarex.TechnicalProj.services;
+package com.softarex.technical_proj.services;
 
-import Belarus.Softarex.TechnicalProj.entities.User;
-import Belarus.Softarex.TechnicalProj.entities.UserSecurity;
-import Belarus.Softarex.TechnicalProj.exceptions.ServiceException;
-import Belarus.Softarex.TechnicalProj.repository.UserRepository;
+import com.softarex.technical_proj.entities.User;
+import com.softarex.technical_proj.exceptions.ServiceException;
+import com.softarex.technical_proj.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

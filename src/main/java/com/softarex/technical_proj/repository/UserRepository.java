@@ -1,6 +1,6 @@
-package Belarus.Softarex.TechnicalProj.repository;
+package com.softarex.technical_proj.repository;
 
-import Belarus.Softarex.TechnicalProj.entities.User;
+import com.softarex.technical_proj.entities.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, String> {

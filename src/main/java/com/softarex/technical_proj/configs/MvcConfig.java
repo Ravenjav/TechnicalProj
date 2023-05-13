@@ -1,4 +1,4 @@
-package Belarus.Softarex.TechnicalProj.configs;
+package com.softarex.technical_proj.configs;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

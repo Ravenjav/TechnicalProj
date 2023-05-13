@@ -1,4 +1,4 @@
-package Belarus.Softarex.TechnicalProj;
+package com.softarex.technical_proj;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

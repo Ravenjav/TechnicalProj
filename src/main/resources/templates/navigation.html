@@ -41,7 +41,11 @@
                                     aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" href="@{/editProfile}">Edit Profile</a></li>
                                     <li><a class="dropdown-item" href="@{/deleteProfile}">Delete Profile</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/logout}">Log Out</a></li>
+                                    <li>
+                                        <form class="dropdown-item" th:action="@{/logout}" method="POST">
+                                            <input type="submit" class="btn" value="LogOut"/>
+                                        </form>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>

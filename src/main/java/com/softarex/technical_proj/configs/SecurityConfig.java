@@ -1,7 +1,8 @@
-package Belarus.Softarex.TechnicalProj.configs;
+package com.softarex.technical_proj.configs;
 
-import Belarus.Softarex.TechnicalProj.services.SecurityService;
+import com.softarex.technical_proj.services.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,16 +14,12 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private DataSource dataSource;
-
     @Autowired
-    public void setDataSource(DataSource dataSource){
-        this.dataSource = dataSource;
-    }
+    private SecurityService usersService;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
-        auth.jdbcAuthentication().dataSource(dataSource);
+        auth.userDetailsService(usersService);
     }
 
     @Override
@@ -36,6 +33,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .loginProcessingUrl("/authenticateTheUser")
                         .defaultSuccessUrl("/main", true)
                 .and()
-                    .logout().logoutSuccessUrl("/login");
+                    .logout().logoutSuccessUrl("/login").permitAll();
     }
 }

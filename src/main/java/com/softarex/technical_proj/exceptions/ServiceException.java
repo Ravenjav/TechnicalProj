@@ -1,4 +1,4 @@
-package Belarus.Softarex.TechnicalProj.exceptions;
+package com.softarex.technical_proj.exceptions;
 
 public class ServiceException extends Exception{
     public ServiceException() {
