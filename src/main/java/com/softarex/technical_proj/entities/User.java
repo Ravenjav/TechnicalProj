@@ -1,22 +1,21 @@
 package com.softarex.technical_proj.entities;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Data;
+import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 @Table(name = "users")
 @Data
-@ToString
 public class User implements UserDetails {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username")
     private String  email;
 
@@ -29,6 +28,10 @@ public class User implements UserDetails {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     @ToString.Exclude
     private List<Authority> authorityList;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender")
+    @ToString.Exclude
+    private List<Question> questions;
 
     @OneToOne(mappedBy = "user")
     private UserInfo userInfo;

@@ -4,12 +4,9 @@ import com.softarex.technical_proj.entities.User;
 import com.softarex.technical_proj.exceptions.ServiceException;
 import com.softarex.technical_proj.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +15,11 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public final class AccessController {
+    private final UserService userService;
 
-    @Autowired
-    private UserService userService;
+    public AccessController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login-error")
     public String loginError(HttpServletRequest request, Model model){
@@ -45,9 +44,8 @@ public final class AccessController {
     }
 
     @PostMapping("/signUp")
-    public String tryAddUser(@ModelAttribute("userBox") User user, BindingResult bindingResult, Model model){
+    public String tryAddUser(@ModelAttribute("userBox") User user, Model model){
         try {
-            System.out.println(user.toString());
             userService.saveUser(user);
             return "login";
         }catch (ServiceException ex){

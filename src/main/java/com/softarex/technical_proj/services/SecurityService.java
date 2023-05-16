@@ -8,9 +8,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 public final class SecurityService implements UserDetailsService {
+    private final UserService userService;
 
-    @Autowired
-    UserService userService;
+    public SecurityService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public User loadUserByUsername(String email) throws UsernameNotFoundException {
