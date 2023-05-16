@@ -1,7 +1,6 @@
 package com.softarex.technical_proj.services;
 
 import com.softarex.technical_proj.entities.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;

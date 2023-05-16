@@ -31,7 +31,11 @@ public class User implements UserDetails {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender")
     @ToString.Exclude
-    private List<Question> questions;
+    private List<Question> questions_sender;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "responsible")
+    @ToString.Exclude
+    private List<Question> questions_responsible;
 
     @OneToOne(mappedBy = "user")
     private UserInfo userInfo;

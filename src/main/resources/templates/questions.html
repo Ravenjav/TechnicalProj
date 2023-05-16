@@ -14,9 +14,19 @@
 <body>
 <div class="container">
     <div th:replace="~{navigation :: navigation(Main)}"/>
-    <div sec:authorize="hasRole('ADMIN')" th:replace="~{adminNavigation :: adminNavigation(Main)}"/>
 
-    <h1>List</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h1>
+                    Your Questions
+                </h1>
+            </div>
+            <div class="col-4">
+                <btn class="btn btn-outline-primary" th:href="@{'/addQuestion}">Add Question</btn>
+            </div>
+        </div>
+    </div>
     <span th:if="${questions.size() == 0}">no questions</span>
     <table th:if="${questions.size() > 0}" class="table table-hover">
         <thead class="thead-dark">
@@ -31,15 +41,15 @@
         </thead>
         <tbody>
         <tr th:each="question : ${questions}">
-            <td th:text="${question.}"/>
-            <td th:text="${car.brand}"/>
-            <td th:text="${car.model}"/>
-            <td th:text="${car.motor}"/>
-            <td sec:authorize="isAuthenticated()">
-                <a class="btn btn-success" th:href="@{'/order/make/' + ${car.id}}">Order</a>
-            </td>
-            <td sec:authorize="hasRole('ADMIN')">
-                <a class="btn btn-danger" th:href="@{'/car/delete/' + ${car.id}}">Delete</a>
+            <td th:text="${question.sender}"/>
+            <td th:text="${question.question}"/>
+            <td th:text="${question.type}"/>
+            <td th:text="${question.answer}"/>
+            <d>
+
+            </d>
+            <td>
+
             </td>
         </tr>
         </tbody>

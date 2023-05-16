@@ -1,7 +1,6 @@
 package com.softarex.technical_proj.configs;
 
 import com.softarex.technical_proj.services.SecurityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -32,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .formLogin().loginPage("/login")
                         .failureUrl("/login-error")
                         .loginProcessingUrl("/authenticateTheUser")
-                        .defaultSuccessUrl("/main", true)
+                        .defaultSuccessUrl("/questions", true)
                 .and()
                     .logout().logoutSuccessUrl("/login").permitAll();
     }
