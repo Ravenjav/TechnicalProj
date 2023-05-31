@@ -1,9 +1,11 @@
 package com.softarex.technical_proj.entities;
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
@@ -11,9 +13,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class UserInfo {
+public class UserInfo implements Serializable {
 
-    @OneToOne
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Long id;
+    @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "username")
     private User user;
 
@@ -23,9 +29,10 @@ public class UserInfo {
     @Column(name = "surname")
     private String surname;
 
-    @Id
     @Column(name = "nickname")
     private String nickname;
+
+
 
     @Override
     public String toString() {
@@ -39,13 +46,13 @@ public class UserInfo {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         UserInfo userInfo = (UserInfo) o;
-        return nickname != null && Objects.equals(nickname, userInfo.nickname);
+        return name.equals(userInfo.name) && surname.equals(userInfo.surname) && nickname.equals(userInfo.nickname);
     }
 
     @Override
     public int hashCode() {
-        return getClass().hashCode();
+        return Objects.hash(name, surname, nickname);
     }
 }

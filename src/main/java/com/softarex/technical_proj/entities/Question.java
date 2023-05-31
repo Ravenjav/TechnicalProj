@@ -6,7 +6,7 @@ import org.hibernate.annotations.TypeDef;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -28,9 +28,8 @@ public class Question implements Serializable {
 
 
     @Column(name = "question")
-    private String question;
+    private String questionText;
 
-    @Enumerated(EnumType.STRING)
     @Column(name="type")
     private QuestionType type;
 
@@ -42,11 +41,17 @@ public class Question implements Serializable {
     @JoinColumn(name = "responsible")
     private User responsible;
 
-    @Column(name = "options")
-    private ArrayList<String> option;
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "options", joinColumns = @JoinColumn(name = "id"))
+    @Column(name = "option")
+    @ToString.Exclude
+    private List<String> options;
 
     @Column(name = "answer")
     private String answer;
+
+    @Transient
+    private String viewType;
 
     @Override
     public boolean equals(Object o) {

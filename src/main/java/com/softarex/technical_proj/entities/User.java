@@ -12,10 +12,9 @@ import java.util.List;
 @Entity
 @Table(name = "users")
 @Data
-public class User implements UserDetails {
+public class User implements UserDetails{
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "username")
     private String  email;
 
@@ -23,7 +22,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(name = "enabled")
-    private String enabled;
+    private Boolean enabled;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     @ToString.Exclude
@@ -37,7 +36,7 @@ public class User implements UserDetails {
     @ToString.Exclude
     private List<Question> questions_responsible;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user", cascade = {CascadeType.ALL})
     private UserInfo userInfo;
 
     @Override

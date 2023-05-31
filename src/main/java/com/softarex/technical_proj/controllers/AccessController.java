@@ -3,6 +3,8 @@ package com.softarex.technical_proj.controllers;
 import com.softarex.technical_proj.entities.User;
 import com.softarex.technical_proj.exceptions.ServiceException;
 import com.softarex.technical_proj.services.UserService;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.WebAttributes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public final class AccessController {
@@ -21,7 +24,7 @@ public final class AccessController {
 
     @GetMapping("/login-error")
     public String loginError(HttpServletRequest request, Model model){
-       /* HttpSession session = request.getSession(false);
+        HttpSession session = request.getSession(false);
         String errorMessage = null;
 
         if (session != null){
@@ -31,7 +34,7 @@ public final class AccessController {
             }
         }
         System.out.println("--------" + errorMessage);
-        model.addAttribute("errorMessage", errorMessage);*/
+        model.addAttribute("errorMessage", errorMessage);
         return "login";
     }
 
@@ -44,7 +47,7 @@ public final class AccessController {
     @PostMapping("/signUp")
     public String tryAddUser(@ModelAttribute("userBox") User user, Model model){
         try {
-            userService.saveUser(user);
+            userService.saveNewUser(user);
             return "login";
         }catch (ServiceException ex){
             model.addAttribute("errorMessage", ex.getMessage());

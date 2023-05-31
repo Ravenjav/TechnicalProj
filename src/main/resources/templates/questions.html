@@ -7,15 +7,15 @@
 
     <title>Application</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <div th:replace="~{navigation :: navigation(Main)}"/>
+    <div th:replace="~{navigation :: navigation(Questions)}"/>
 
-    <div class="container">
+    <div class="container mt-3">
         <div class="row">
             <div class="col-8">
                 <h1>
@@ -23,31 +23,34 @@
                 </h1>
             </div>
             <div class="col-4">
-                <btn class="btn btn-outline-primary" th:href="@{'/addQuestion}">Add Question</btn>
+                <a th:href="@{/addQuestion}" class="btn btn-outline-primary" role="button">Add Question</a>
             </div>
         </div>
     </div>
     <span th:if="${questions.size() == 0}">no questions</span>
-    <table th:if="${questions.size() > 0}" class="table table-hover">
-        <thead class="thead-dark">
+    <table th:if="${questions.size() > 0}" class="table table-hover table-striped">
+        <thead class="table-dark">
         <tr>
-            <td>For User</td>
-            <td>Question</td>
-            <td>Answer Type</td>
-            <td>Answer</td>
-            <td></td>
-            <td></td>
+            <th>For User</th>
+            <th>Question</th>
+            <th>Answer Type</th>
+            <th>Answer</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="question : ${questions}">
-            <td th:text="${question.sender}"/>
-            <td th:text="${question.question}"/>
-            <td th:text="${question.type}"/>
+            <td th:text="${question.responsible.email}" class="align-middle"/>
+            <td th:text="${question.questionText}"/>
+            <td th:text="${question.type.val}"/>
             <td th:text="${question.answer}"/>
-            <d>
-
-            </d>
+            <td>
+                <form th:action="@{/changeQuestion}" method="POST">
+                    <input type="hidden" th:value="${question.id}" name="id">
+                    <button type="submit" class="btn btn-outline-warning">Change</button>
+                </form>
+            </td>
             <td>
 
             </td>

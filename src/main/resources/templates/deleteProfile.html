@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>deleteProfile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div id="deleteProfileBox" style="margin-top: 50px;"
+         class="mainbox col-md-3 col-md-offset-2 col-sm-6 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Delete profile</div>
+            </div>
+            <div style="padding-top: 30px" class="panel-body">
+                <form th:action="@{/deleteProfile}" method="POST" class="form-horizontal">
+                    <div style="margin-bottom: 20px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input required type="password" name="password" placeholder="Password" class="form-control"
+                               minlength="4" maxlength="20">
+                    </div>
+                    <div class="text-danger" style="margin-top: 10px" th:if="${errorMessage}"
+                         th:text="${errorMessage}"/>
+                    <div style="margin-bottom: 10px" class="form-group d-flex flex-row bd-highlight mb-3">
+                        <div class="col-sm-6 controls">
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px" class="form-group">
+                        <div class="col-sm-9 controls">
+                            <p>
+                                <a th:href="@{/questions}">Back</a>
+                            </p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

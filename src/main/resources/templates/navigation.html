@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 
 <head>
     <meta charset="utf-8"/>
@@ -25,25 +25,33 @@
             <div class="collapse navbar-collapse d-sm-flex flex-row justify-content-center">
                 <ul class="navbar-nav ">
                     <li class="nav-item d-flex">
-                        <a class="nav-link" th:href="@{/YourQuestions}">YourQuestions</a>
+                        <a class="nav-link" th:href="@{/questions}" th:classappend="${activeTab == 'Questions' ? 'active' : ''}">
+                            Questions
+                        </a>
                     </li>
                     <li class="nav-item d-flex">
-                        <a class="nav-link" th:href="@{/AnswerTheQuestion}">AnswerTheQuestion</a>
+                        <a class="nav-link" th:href="@{/AnswerTheQuestion}">Answers</a>
                     </li>
                     <div class="collapse navbar-collapse d-flex" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
                                    role="button" data-bs-toggle="dropdown"  aria-expanded="false"
-                                   th:text="${#authentication.principal.userInfo.nickname}">
+                                   th:text="${#authentication.principal.userInfo.name + ' ' + #authentication.principal.userInfo.surname}">
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-dark"
                                     aria-labelledby="navbarDarkDropdownMenuLink">
                                     <li><a class="dropdown-item" th:href="@{/editProfile}">Edit Profile</a></li>
-                                    <li><a class="dropdown-item" th:href="@{/deleteProfile}">Delete Profile</a></li>
+                                    <li>
+                                        <a class="dropdown-item" th:href="@{/deleteProfile}"
+                                           th:classappend="${activeTab == 'Delete' ? 'active' : ''}">
+                                            Delete Profile
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <form class="dropdown-item" th:action="@{/logout}" method="POST">
-                                            <input type="submit" class="btn" value="LogOut"/>
+                                            <input type="submit" class="dropdown-item" role="button" value="LogOut"/>
                                         </form>
                                     </li>
                                 </ul>

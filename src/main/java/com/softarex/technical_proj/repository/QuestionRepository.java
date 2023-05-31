@@ -16,5 +16,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     List<Question> findBySenderEmail(String sender);
 
+    List<Question> findByResponsibleEmail(String responsible);
+
     //Page<Question> findByResponsible(String responsible, Pageable pageable);
 }
