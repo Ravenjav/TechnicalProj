@@ -5,7 +5,6 @@ import com.softarex.technical_proj.entities.User;
 import com.softarex.technical_proj.services.QuestionService;
 import com.softarex.technical_proj.services.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.server.csrf.ServerCsrfTokenRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,7 +26,7 @@ public final class MainController {
     }
 
     @GetMapping("/questions")
-    public String questionPage(Model model){
+    public String questionsPage(Model model){
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         //Page<Question> page = questionService.findSendQuestionsByUsername(user.getUsername(), pageable);*/
         List<Question> page = new ArrayList<>();
@@ -38,6 +37,18 @@ public final class MainController {
         return "questions";
     }
 
+    @GetMapping("/answers")
+    public String answersPage(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        //Page<Question> page = questionService.findSendQuestionsByUsername(user.getUsername(), pageable);*/
+        List<Question> page = new ArrayList<>();
+        page = questionService.findAll();
+        model.addAttribute("questions", page);
+        //System.out.println(page.size());
+        //System.out.println("---------------------------------------------");
+        return "answers";
+    }
+
     @GetMapping("/addQuestion")
     public String addQuestion(Model model){
         Question question = new Question();
@@ -46,7 +57,8 @@ public final class MainController {
     }
 
     @PostMapping("/addQuestion")
-    public String addQuestion(Model model, @ModelAttribute("question") Question question, @ModelAttribute("forUser") String forUser){
+    public String addQuestion(Model model, @ModelAttribute("question") Question question,
+                              @ModelAttribute("forUser") String forUser){
         User responsible = userService.findUserById(forUser);
         if (responsible == null){
             model.addAttribute("question", question);
@@ -56,15 +68,21 @@ public final class MainController {
         question.setResponsible(responsible);
         User sender = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         question.setSender(sender);
-        System.out.println("---------------------");
-        System.out.println(question.getViewType());
         questionService.createQuestion(question);
         return "redirect:/questions";
     }
 
+    @PostMapping("/changeQuestion")
+    public String changeQuestion(@ModelAttribute("id") Long id, Model model){
+        Question question = questionService.findById(id);
+        model.addAttribute("question",question);
+        return "/change_question";
+    }
+
     @PostMapping("/changeQuestionAfter")
-    public String changeQuestionAfter(Model model, @ModelAttribute("question") Question question, @ModelAttribute("forUser") String forUser,
-                                        @ModelAttribute("type") String type, @ModelAttribute("id") Long id){
+    public String changeQuestionAfter(Model model, @ModelAttribute("question") Question question,
+                                      @ModelAttribute("forUser") String forUser,
+                                      @ModelAttribute("type") String type, @ModelAttribute("id") Long id){
         User responsible = userService.findUserById(forUser);
         if (responsible == null){
             model.addAttribute("question", question);
@@ -75,18 +93,27 @@ public final class MainController {
         User sender = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         question.setSender(sender);
         question.setId(id);
-        System.out.println("---------------------");
-        System.out.println(question.getViewType());
         questionService.editQuestion(question, type);
         return "redirect:/questions";
     }
 
-    @PostMapping("/changeQuestion")
-    public String changeQuestion(@ModelAttribute("id") Long id, Model model){
-        System.out.println("----------------------------------------");
-        System.out.println(id);
+    @PostMapping("/answerQuestionAfter")
+    public String changeQuestionAfter(Model model, @ModelAttribute("question") Question question,
+                                      @ModelAttribute("fromUser") String fromUser,
+                                      @ModelAttribute("type") String type, @ModelAttribute("id") Long id,
+                                      @ModelAttribute("questionText") String questionText){
+        User sender = userService.findUserById(fromUser);
+        question.setSender(sender);
+        User responsible = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        question.setResponsible(responsible);
+        questionService.editAnswer(question, type, questionText, id);
+        return "redirect:/answers";
+    }
+
+    @PostMapping("/answerQuestion")
+    public String answerQuestion(Model model, @ModelAttribute("id") Long id){
         Question question = questionService.findById(id);
         model.addAttribute("question",question);
-        return "/change_question";
+        return "/answer_question";
     }
 }

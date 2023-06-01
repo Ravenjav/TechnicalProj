@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li class="nav-item d-flex">
-                        <a class="nav-link" th:href="@{/AnswerTheQuestion}">Answers</a>
+                        <a class="nav-link" th:href="@{/answers}" th:classappend="${activeTab == 'Answers' ? 'active' : ''}">Answers</a>
                     </li>
                     <div class="collapse navbar-collapse d-flex" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">

@@ -63,6 +63,13 @@ public final class QuestionService {
         repository.save(question);
     }
 
+    public void editAnswer(Question question, String type, String questionText, Long id){
+        question.setId(id);
+        question.setQuestionText(questionText);
+        question.setType(setType(type));
+        repository.save(question);
+    }
+
     public void deleteUserQuestions(String email){
         List <Question> questions = repository.findBySenderEmail(email);
         repository.deleteAll(questions);
