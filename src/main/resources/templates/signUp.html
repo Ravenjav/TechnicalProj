@@ -37,7 +37,7 @@
                 <form th:action="@{/signUp}"  method="POST" th:object="${userBox}" class="form-horizontal">
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                        <input required type="text" th:field="*{email}" id="username" placeholder="Email" class="form-control"
+                        <input required type="text" th:field="*{email}" id="username" placeholder="Login" class="form-control"
                                minlength="3" maxlength="35" >
                     </div>
                     <div style="margin-bottom: 25px" class="input-group">
@@ -62,8 +62,8 @@
                     </div>
                     <div style="margin-bottom: 25px" class="input-group">
                         <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input required type="text" name="nickname" th:field="*{userInfo.nickname}" placeholder="Nickname" class="form-control"
-                               minlength="3" maxlength="20">
+                        <input required type="text" name="nickname" th:field="*{userInfo.key}" placeholder="Key" class="form-control"
+                               minlength="15" maxlength="40">
                     </div>
                     <div style="margin-bottom: 25px" class="form-group">
                         <div class="col-sm-6 controls">

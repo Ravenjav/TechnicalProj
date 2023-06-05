@@ -18,19 +18,31 @@
             <div class="collapse navbar-collapse d-sm-flex flex-row justify-content-center">
                 <ul class="navbar-nav ">
                     <li class="nav-item">
-                        <a class="nav-link">Logo</a>
+                        <a class="nav-link">TM Bot</a>
                     </li>
                 </ul>
             </div>
             <div class="collapse navbar-collapse d-sm-flex flex-row justify-content-center">
                 <ul class="navbar-nav ">
                     <li class="nav-item d-flex">
-                        <a class="nav-link" th:href="@{/questions}" th:classappend="${activeTab == 'Questions' ? 'active' : ''}">
-                            Questions
+                        <a class="nav-link" th:href="@{/items}" th:classappend="${activeTab == 'Items' ? 'active' : ''}">
+                            Items
                         </a>
                     </li>
                     <li class="nav-item d-flex">
-                        <a class="nav-link" th:href="@{/answers}" th:classappend="${activeTab == 'Answers' ? 'active' : ''}">Answers</a>
+                        <a class="nav-link" th:href="@{/orders/sale}" th:classappend="${activeTab == 'SaleOrders' ? 'active' : ''}">
+                            Sell orders
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link" th:href="@{/orders/buy}" th:classappend="${activeTab == 'BuyOrders' ? 'active' : ''}">
+                            Buy orders
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex">
+                        <a class="nav-link" th:href="@{/history}" th:classappend="${activeTab == 'History' ? 'active' : ''}">
+                            Sales history
+                        </a>
                     </li>
                     <div class="collapse navbar-collapse d-flex" id="navbarNavDarkDropdown">
                         <ul class="navbar-nav">
