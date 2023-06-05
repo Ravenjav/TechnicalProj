@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+>
+
+<head>
+    <meta charset="utf-8"/>
+
+    <title>Application</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{navigation :: navigation(SaleOrders)}"/>
+
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col-8">
+                <h1>
+                    Your Sale Orders
+                </h1>
+            </div>
+            <div class="col-4">
+                <a th:href="@{/stopTrade}" class="btn btn-outline-primary" role="button">Stop trade</a>
+            </div>
+        </div>
+    </div>
+    <span th:if="${orders.size() == 0}">no items</span>
+    <table th:if="${items.size() > 0}" class="table table-hover table-striped">
+        <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Buy Price</th>
+            <th>Current price</th>
+            <th>Dispersion</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.itemName}" class="align-middle"/>
+            <td th:text="${order.startPrice}"/>
+            <td th:text="${order.currentPrice}"/>
+            <td th:text="${order.dispersion}"/>
+            <td>
+                <form th:action="@{/changeDispersion}" method="POST">
+                    <input type="hidden" th:value="${item.id}" name="id">
+                    <button type="submit" class="btn btn-outline-warning">Change</button>
+                </form>
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
